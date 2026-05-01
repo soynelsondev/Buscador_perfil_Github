@@ -63,4 +63,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 // Corrutinas
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // ESTA ES LA LÍNEA QUE NECESITAS PARA COIL
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
