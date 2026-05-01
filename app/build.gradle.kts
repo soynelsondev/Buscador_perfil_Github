@@ -66,4 +66,5 @@ dependencies {
 
     // ESTA ES LA LÍNEA QUE NECESITAS PARA COIL
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 }

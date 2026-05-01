@@ -4,6 +4,7 @@ package com.example.buscador_github.iu.home
 import android.R.color.white
 import androidx.annotation.OptIn
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,7 +58,7 @@ fun Principal(viewModel: BucadorViewModel){
         topBar = {toolbar()}
     )
     { innerPadding ->
-        Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+        Column(modifier = Modifier.fillMaxSize().padding(innerPadding) .background(Fondo)) {
 
             buscadorUser(viewModel)
 
@@ -75,8 +76,8 @@ fun Principal(viewModel: BucadorViewModel){
 @Composable
 fun toolbar(){
     TopAppBar(
-        title = {Text("Buscador de Perfil GitHub")},
-        colors = TopAppBarDefaults.topAppBarColors(Fondo, FondoCard)
+        title = {Text("Buscador de Perfil GitHub", color = colorResource(FondoCard))},
+        colors = TopAppBarDefaults.topAppBarColors(Fondo)
     )
 
 }
@@ -117,7 +118,7 @@ fun tarjetaUser(usuario: GithubUsers){
     val uriHandler = LocalUriHandler.current
 
     Card ( shape=RoundedCornerShape(12.dp) ,
-            modifier = Modifier.fillMaxWidth() .height(130.dp),
+            modifier = Modifier.fillMaxWidth() .height(150.dp),
         colors = CardDefaults.cardColors(containerColor = FondoCard)){
 
         Column(modifier = Modifier.fillMaxSize() .padding(4.dp) ) {
@@ -126,14 +127,14 @@ fun tarjetaUser(usuario: GithubUsers){
                 AsyncImage(
                     model = usuario.fotoPerfil,
                     contentDescription = "Foto perfil ${usuario.nombreUsuario}",
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(50.dp)
                         .clip(CircleShape)
                 )
                 Text(text = usuario.nombreUsuario,
                     color = Fondo,
-                    fontSize = 40.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier.padding(start = 18.dp, top = 10.dp)
                 )
             }
 
