@@ -12,9 +12,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -35,6 +37,27 @@ import com.example.buscador_github.ui.theme.icono
 fun Principal(viewModel: BucadorViewModel){
 
 }
+
+
+
+@Composable
+fun buscadorUser(viewModel: BucadorViewModel){
+    Row(modifier = Modifier.fillMaxWidth() .padding(10.dp) , verticalAlignment = Alignment.CenterVertically)
+    {
+        OutlinedTextField(
+            value = viewModel.textoBusqueda,
+            onValueChange = {viewModel.textBusqueda(it)},
+            modifier = Modifier.weight(1f),
+            placeholder = {Text("Buscar Usuario..")},
+            shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
+            singleLine = true
+        )
+
+        
+
+    }
+}
+
 
 
 

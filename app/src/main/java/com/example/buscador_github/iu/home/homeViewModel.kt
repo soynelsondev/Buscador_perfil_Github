@@ -12,11 +12,18 @@ import kotlinx.coroutines.launch
 class BucadorViewModel : ViewModel(){
 
     var listaUsuarios by mutableStateOf<List<GithubUsers>>(emptyList())
+    var textoBusqueda by mutableStateOf("")
+        private set
 
-    fun realizarBusqueda(nombre : String){
+    fun textBusqueda(nuevoTexto : String){
+        textoBusqueda = nuevoTexto
+    }
+
+
+    fun realizarBusqueda(){
         viewModelScope.launch {
         try {
-            val respuesta = RetrofitClient.apiService.buscarUsuarios(nombre)
+            val respuesta = RetrofitClient.apiService.buscarUsuarios(textoBusqueda)
 
             listaUsuarios = respuesta.body()?.listaUsuarios ?: emptyList()
 
