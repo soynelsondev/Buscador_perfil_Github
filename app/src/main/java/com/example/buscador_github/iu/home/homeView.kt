@@ -38,12 +38,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.size.Size
 import com.example.buscador_github.data.GithubUsers
 import com.example.buscador_github.ui.theme.Fondo
 import com.example.buscador_github.ui.theme.FondoCard
@@ -76,7 +78,7 @@ fun Principal(viewModel: BucadorViewModel){
 @Composable
 fun toolbar(){
     TopAppBar(
-        title = {Text("Buscador de Perfil GitHub", color = colorResource(FondoCard))},
+        title = {Text("Buscador de Perfil GitHub", color = FondoCard)},
         colors = TopAppBarDefaults.topAppBarColors(Fondo)
     )
 
@@ -94,9 +96,12 @@ fun buscadorUser(viewModel: BucadorViewModel){
             shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
             singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = FondoCard,
+                unfocusedTextColor = FondoCard,
                 focusedBorderColor = icono,
                 unfocusedBorderColor = icono
-            )
+            ),
+            textStyle = TextStyle(fontSize = 20.sp)
         )
 
         Button(onClick = {
@@ -104,7 +109,9 @@ fun buscadorUser(viewModel: BucadorViewModel){
         }, modifier = Modifier.height(56.dp),
             shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
             colors = ButtonDefaults.buttonColors(icono,FondoCard)
-        ) { Icon(painter = painterResource(R.drawable.buscar), contentDescription = "lupa", tint = FondoCard) }
+        ) { Icon(painter = painterResource(R.drawable.buscar), contentDescription = "lupa", tint = FondoCard,
+            modifier = Modifier.size(30.dp)
+        ) }
 
     }
 }
@@ -118,7 +125,7 @@ fun tarjetaUser(usuario: GithubUsers){
     val uriHandler = LocalUriHandler.current
 
     Card ( shape=RoundedCornerShape(12.dp) ,
-            modifier = Modifier.fillMaxWidth() .height(150.dp),
+            modifier = Modifier.fillMaxWidth() .height(180.dp) .padding(horizontal = 16.dp, vertical = 10.dp),
         colors = CardDefaults.cardColors(containerColor = FondoCard)){
 
         Column(modifier = Modifier.fillMaxSize() .padding(4.dp) ) {
@@ -127,14 +134,14 @@ fun tarjetaUser(usuario: GithubUsers){
                 AsyncImage(
                     model = usuario.fotoPerfil,
                     contentDescription = "Foto perfil ${usuario.nombreUsuario}",
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier.size(90.dp) .padding(5.dp)
                         .clip(CircleShape)
                 )
                 Text(text = usuario.nombreUsuario,
                     color = Fondo,
-                    fontSize = 30.sp,
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 18.dp, top = 10.dp)
+                    modifier = Modifier.padding(start = 5.dp, top = 18.dp)
                 )
             }
 
