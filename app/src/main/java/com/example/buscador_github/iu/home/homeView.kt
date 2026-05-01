@@ -18,6 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,6 +28,7 @@ import coil.compose.AsyncImage
 import com.example.buscador_github.data.GithubUsers
 import com.example.buscador_github.ui.theme.Fondo
 import com.example.buscador_github.ui.theme.FondoCard
+import com.example.buscador_github.ui.theme.icono
 
 
 @Composable
@@ -36,6 +40,8 @@ fun Principal(viewModel: BucadorViewModel){
 
 @Composable
 fun tarjetaUser(usuario: GithubUsers){
+
+    val uriHandler = LocalUriHandler.current
 
     Card ( shape=RoundedCornerShape(12.dp) ,
             modifier = Modifier.fillMaxWidth() .height(130.dp),
@@ -53,11 +59,19 @@ fun tarjetaUser(usuario: GithubUsers){
                 Text(text = usuario.nombreUsuario,
                     color = Fondo,
                     fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }
 
-            TextButton() { }
+            TextButton(
+                onClick = {if (usuario.urlPerfil.isNotEmpty()){
+                    uriHandler.openUri(usuario.urlPerfil)
+                }
+                    },
+                modifier = Modifier.padding(vertical = 10.dp)
+            )
+            { Text(text = "Ver Perfil", color = icono,fontWeight = FontWeight.Bold, fontSize = 18.sp)}
         }
     }
 }
