@@ -1,5 +1,8 @@
+@file:kotlin.OptIn(ExperimentalMaterial3Api::class)
 package com.example.buscador_github.iu.home
 
+import android.R.color.white
+import androidx.annotation.OptIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,19 +11,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,14 +46,33 @@ import com.example.buscador_github.data.GithubUsers
 import com.example.buscador_github.ui.theme.Fondo
 import com.example.buscador_github.ui.theme.FondoCard
 import com.example.buscador_github.ui.theme.icono
+import com.example.buscador_github.R
 
 
 @Composable
 fun Principal(viewModel: BucadorViewModel){
+    Scaffold (
+        topBar = {toolbar()}
+    )
+    { innerPadding ->
+        Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+
+
+        LazyColumn() { }
+    }
+    }
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun toolbar(){
+    TopAppBar(
+        title = {Text("Buscador de Perfil GitHub")},
+        colors = TopAppBarDefaults.topAppBarColors(Fondo, FondoCard)
+    )
 
+}
 
 @Composable
 fun buscadorUser(viewModel: BucadorViewModel){
@@ -50,10 +84,19 @@ fun buscadorUser(viewModel: BucadorViewModel){
             modifier = Modifier.weight(1f),
             placeholder = {Text("Buscar Usuario..")},
             shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
-            singleLine = true
+            singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = icono,
+                unfocusedBorderColor = icono
+            )
         )
 
-        
+        Button(onClick = {
+            viewModel.realizarBusqueda()
+        }, modifier = Modifier.height(56.dp),
+            shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
+            colors = ButtonDefaults.buttonColors(icono,FondoCard)
+        ) { Icon(painter = painterResource(R.drawable.buscar), contentDescription = "lupa", tint = FondoCard) }
 
     }
 }
